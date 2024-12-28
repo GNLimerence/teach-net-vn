@@ -1,5 +1,5 @@
 const forumModel = require("../models/forum.model");
-
+const mongoose = require("mongoose");
 const createForum = async (req, res) => {
   try {
     const { name, userId, description } = req.body;
@@ -23,12 +23,11 @@ const createForum = async (req, res) => {
 
 const getForumsByUser = async (req, res) => {
   try {
-    const { userId } = req.body;
-
-    if (!userId) {
+    const { id } = req.user;
+    if (!id) {
       return res.status(400).json({ error: "userId is required" });
     }
-    const forums = await forumModel.find({ members: userId });
+    const forums = await forumModel.find({ members: id });
 
     res.status(200).json(forums);
   } catch (err) {

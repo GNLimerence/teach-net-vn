@@ -11,6 +11,10 @@ const userSchema = new mongoose.Schema({
   experience_years: Number,
   skills: [String],
   profile_image: String,
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
 });

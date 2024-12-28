@@ -4,6 +4,7 @@ const {
   uploadResource,
   getResourcesByForum,
 } = require("../controllers/resource.controller");
+const { verifyToken } = require("../middleware/auth");
 
 const router = express.Router();
 
@@ -18,7 +19,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.post("/upload", upload.single("file"), uploadResource);
-router.get("/forum/:forumId", getResourcesByForum);
+router.post("/upload", verifyToken, upload.single("file"), uploadResource);
+router.get("/forum/:forumId", verifyToken, getResourcesByForum);
 
 module.exports = router;

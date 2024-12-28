@@ -1,11 +1,20 @@
 const express = require("express");
 const commentController = require("../controllers/comment.controller");
+const { verifyToken } = require("../middleware/auth");
 
 const router = express.Router();
 
-router.post("/", commentController.createComment);
+router.post("/", verifyToken, commentController.createComment);
 
-router.post("/post-comment", commentController.getCommentsByPostId);
+router.post(
+  "/post-comment",
+  verifyToken,
+  commentController.getCommentsByPostId
+);
 
-router.post("/increase-agree", commentController.increaseAgreeCount);
+router.post(
+  "/increase-agree",
+  verifyToken,
+  commentController.increaseAgreeCount
+);
 module.exports = router;

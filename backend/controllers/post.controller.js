@@ -4,15 +4,16 @@ const moment = require("moment-timezone");
 const userModel = require("../models/user.model");
 
 const createPost = async (req, res) => {
-  const { userId, forumId, title, content } = req.body;
-  if (!userId || !forumId || !title || !content) {
+  const { forumId, title, content } = req.body;
+  const { id } = req.user;
+  if (!forumId || !title || !content) {
     return res.status(400).json({ error: "Missing information" });
   }
   await postModel.create({
     forum_id: forumId,
     title,
     content,
-    created_by: userId,
+    created_by: id,
   });
   return res.status(201).json({ message: "Created!" });
 };

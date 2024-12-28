@@ -5,16 +5,16 @@ const userModel = require("../models/user.model");
 
 const createComment = async (req, res) => {
   try {
-    const { postId, authorId, content } = req.body;
-
-    if (!postId || !authorId || !content) {
+    const { postId, content } = req.body;
+    const { id } = req.user;
+    if (!postId || !content) {
       return res
         .status(400)
         .json({ error: "forum_id, author_id, and content are required" });
     }
     await commentModel.create({
       post_id: postId,
-      author_id: authorId,
+      author_id: id,
       content,
     });
     res.status(201).json({ message: "Comment created" });

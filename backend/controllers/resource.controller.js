@@ -2,8 +2,8 @@ const Resource = require("../models/resource.model");
 const mongoose = require("mongoose");
 
 const uploadResource = async (req, res) => {
-  const { forumId, title, uploadedBy, tags } = req.body;
-
+  const { forumId, title, tags } = req.body;
+  const { id } = req.user;
   if (!req.file) {
     return res.status(400).json({ message: "Không có file được upload." });
   }
@@ -13,7 +13,7 @@ const uploadResource = async (req, res) => {
       title,
       file_url: `/uploads/${req.file.filename}`,
       forum_id: forumId,
-      uploaded_by: uploadedBy,
+      uploaded_by: id,
       tags: tags ? tags.split(",") : [],
     });
 
