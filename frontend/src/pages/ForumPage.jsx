@@ -1,30 +1,20 @@
-import React, { useEffect } from "react";
-import {
-  Box,
-  Typography,
-  Fab,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-  Button,
-} from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import React, { useEffect, useState } from "react";
+import { Box, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import ForumSidebar from "../components/ForumSidebar";
-import { createPostApi, getForumByIdApi, getPostByForumId } from "../api/api";
+import PostList from "../components/PostList";
+import ResourceList from "../components/ResourceList";
+import ResourceUpload from "../components/ResourceUpload";
+import { getForumByIdApi, getPostByForumId } from "../api/api";
 
 const ForumPage = () => {
-  const [group, setGroup] = React.useState(null);
-  const [posts, setPosts] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState(null);
-  const [openDialog, setOpenDialog] = React.useState(false);
-  const [postTitle, setPostTitle] = React.useState("");
-  const [postDescription, setPostDescription] = React.useState("");
+  const [group, setGroup] = useState(null);
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [activeTab, setActiveTab] = useState("posts");
   const { id } = useParams();
 
   useEffect(() => {
@@ -55,28 +45,12 @@ const ForumPage = () => {
     fetchForumInfo();
   }, [id]);
 
-  const handleOpenDialog = () => setOpenDialog(true);
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-    setPostTitle("");
-    setPostDescription("");
-  };
-
-  const handleCreatePost = async () => {
-    if (postTitle && postDescription) {
-      try {
-        await createPostApi({
-          forumId: id,
-          userId: "67573a956843e349fae8d810",
-          title: postTitle,
-          content: postDescription,
-        });
-        handleCloseDialog();
-        const updatedPosts = await getPostByForumId({ forumId: id });
-        setPosts(updatedPosts.data);
-      } catch (err) {
-        console.error("Error creating post:", err);
-      }
+  const refreshPosts = async () => {
+    try {
+      const updatedPosts = await getPostByForumId({ forumId: id });
+      setPosts(updatedPosts.data);
+    } catch (err) {
+      console.error("Error refreshing posts:", err);
     }
   };
 
@@ -132,76 +106,28 @@ const ForumPage = () => {
       <Sidebar />
       <Box sx={{ flexGrow: 1 }}>
         <Header />
-        <ForumSidebar forumInfo={group} />
+        <ForumSidebar
+          forumInfo={group}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
         <Box sx={{ padding: 2 }}>
-          {posts.length > 0 ? (
-            posts.map((post) => (
-              <Box
-                key={post._id}
-                sx={{
-                  border: "1px solid #ddd",
-                  borderRadius: 2,
-                  padding: 2,
-                  marginBottom: 2,
-                }}
-              >
-                <Typography variant="h6">{post.title}</Typography>
-                <Typography variant="body2" color="textSecondary">
-                  {post.senderName} - {post.createdAt}
-                </Typography>
-                <Typography variant="body1">{post.content}</Typography>
-              </Box>
-            ))
+          {activeTab === "posts" ? (
+            <PostList
+              posts={posts}
+              forumId={id}
+              onRefreshPosts={refreshPosts}
+            />
           ) : (
-            <Typography variant="body1">Không có bài đăng nào.</Typography>
+            <div>
+              <ResourceUpload
+                forumId={id}
+                onUploadSuccess={() => window.location.reload()}
+              />
+              <ResourceList forumId={id} />
+            </div>
           )}
         </Box>
-        <Fab
-          color="primary"
-          aria-label="add"
-          sx={{
-            position: "fixed",
-            bottom: 16,
-            right: 16,
-          }}
-          onClick={handleOpenDialog}
-        >
-          <AddIcon />
-        </Fab>
-        <Dialog open={openDialog} onClose={handleCloseDialog}>
-          <DialogTitle>Tạo bài đăng mới</DialogTitle>
-          <DialogContent>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="title"
-              label="Tiêu đề"
-              type="text"
-              fullWidth
-              variant="outlined"
-              value={postTitle}
-              onChange={(e) => setPostTitle(e.target.value)}
-            />
-            <TextField
-              margin="dense"
-              id="description"
-              label="Mô tả"
-              type="text"
-              fullWidth
-              multiline
-              rows={4}
-              variant="outlined"
-              value={postDescription}
-              onChange={(e) => setPostDescription(e.target.value)}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseDialog}>Hủy</Button>
-            <Button onClick={handleCreatePost} variant="contained">
-              Tạo bài đăng
-            </Button>
-          </DialogActions>
-        </Dialog>
       </Box>
     </Box>
   );

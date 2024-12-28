@@ -12,7 +12,6 @@ const GroupList = () => {
     try {
       const res = await fetchMyForumApi({ userId: "67573a956843e349fae8d810" });
       if (res) {
-        console.log(res);
         setGroups(res.data);
       }
     } catch (error) {

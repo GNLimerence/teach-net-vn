@@ -13,6 +13,7 @@ app.options("*", cors());
 
 //route
 app.use("/v1/api", routes);
+app.use("/uploads", express.static("uploads"));
 
 mongoose
   .connect(process.env.MONGODB_URI)

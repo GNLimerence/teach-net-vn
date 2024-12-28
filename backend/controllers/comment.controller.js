@@ -1,24 +1,23 @@
-const commentService = require("../services/comment.service");
+const httpStatus = require("http-status");
+const commentModel = require("../models/comment.model");
+const mongoose = require("mongoose");
+const userModel = require("../models/user.model");
 
-/**
- * Controller to create a new comment
- */
 const createComment = async (req, res) => {
   try {
-    const { forum_id, author_id, content } = req.body;
+    const { postId, authorId, content } = req.body;
 
-    if (!forum_id || !author_id || !content) {
+    if (!postId || !authorId || !content) {
       return res
         .status(400)
         .json({ error: "forum_id, author_id, and content are required" });
     }
-
-    const newComment = await commentService.createComment({
-      forum_id,
-      author_id,
+    await commentModel.create({
+      post_id: postId,
+      author_id: authorId,
       content,
     });
-    res.status(201).json(newComment);
+    res.status(201).json({ message: "Comment created" });
   } catch (err) {
     res
       .status(500)
@@ -26,20 +25,52 @@ const createComment = async (req, res) => {
   }
 };
 
-/**
- * Controller to get all comments for a specific forum post
- */
-const getCommentsByForumId = async (req, res) => {
+const getCommentsByPostId = async (req, res) => {
   try {
-    const { forumId } = req.params;
+    const { postId } = req.body;
 
-    const comments = await commentService.getCommentsByForumId(forumId);
-    res.status(200).json(comments);
+    const commentsOfPost = await commentModel
+      .find({
+        post_id: new mongoose.Types.ObjectId(postId),
+      })
+      .populate("author_id", "name avatar_url");
+
+    res.status(200).json({
+      code: 200,
+      data: commentsOfPost.map((comment) => ({
+        ...comment.toObject(),
+        agreeCount: comment.agreedBy.length,
+      })),
+    });
   } catch (err) {
-    res
-      .status(500)
-      .json({ error: "Failed to fetch comments", details: err.message });
+    res.status(500).json({
+      error: "Failed to fetch comments",
+      details: err.message,
+    });
   }
 };
 
-module.exports = { createComment, getCommentsByForumId };
+const increaseAgreeCount = async (req, res) => {
+  const { commentId, userId } = req.body;
+
+  const comment = await commentModel.findById(commentId);
+
+  if (!comment) {
+    return res.status(404).json({ message: "Comment not found" });
+  }
+  const objectTypeUserId = new mongoose.Types.ObjectId(userId);
+  const userIndex = comment.agreedBy.indexOf(objectTypeUserId);
+
+  if (userIndex > -1) {
+    comment.agreedBy.splice(userIndex, 1);
+  } else {
+    comment.agreedBy.push(objectTypeUserId);
+  }
+
+  await comment.save();
+  res.json({
+    agreedBy: comment.agreedBy,
+    agreeCount: comment.agreedBy.length,
+  });
+};
+module.exports = { createComment, getCommentsByPostId, increaseAgreeCount };

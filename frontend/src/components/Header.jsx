@@ -12,7 +12,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 const Header = () => {
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#3f51b5" }}>
+    <AppBar position="sticky" sx={{ backgroundColor: "#3f51b5" }}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <Typography variant="h6">TeachNetVN</Typography>
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>

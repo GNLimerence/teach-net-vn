@@ -5,23 +5,32 @@ import GroupIcon from "@mui/icons-material/Group";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MessageIcon from "@mui/icons-material/Message";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const handleNavigateToHome = () => {
+    navigate("/");
+  };
+
   return (
     <Box
       sx={{
         width: "60px",
-        height: "100vh",
         backgroundColor: "#3f51b5",
         color: "#fff",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         paddingTop: "20px",
+        position: "sticky",
+        top: 0,
+        height: "100vh",
+        overflowY: "auto",
       }}
     >
       <Stack spacing={3}>
-        <IconButton color="inherit">
+        <IconButton color="inherit" onClick={handleNavigateToHome}>
           <HomeIcon />
         </IconButton>
         <IconButton color="inherit">

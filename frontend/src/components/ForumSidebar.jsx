@@ -2,7 +2,7 @@ import React from "react";
 import { Box, IconButton, Typography, Stack, Button } from "@mui/material";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 
-const ForumSidebar = ({ forumInfo }) => {
+const ForumSidebar = ({ forumInfo, activeTab, setActiveTab }) => {
   return (
     <Box
       sx={{
@@ -17,12 +17,25 @@ const ForumSidebar = ({ forumInfo }) => {
         </Typography>
         <Box>
           <Button
-            variant="contained"
-            sx={{ marginRight: "8px", backgroundColor: "#3f51b5" }}
+            variant={activeTab === "posts" ? "contained" : "outlined"}
+            sx={{
+              marginRight: "8px",
+              backgroundColor: activeTab === "posts" ? "#3f51b5" : "inherit",
+              color: activeTab === "posts" ? "white" : "#3f51b5",
+            }}
+            onClick={() => setActiveTab("posts")}
           >
             Bài đăng
           </Button>
-          <Button variant="outlined" sx={{ color: "#3f51b5" }}>
+          <Button
+            variant={activeTab === "resources" ? "contained" : "outlined"}
+            sx={{
+              color: activeTab === "resources" ? "white" : "#3f51b5",
+              backgroundColor:
+                activeTab === "resources" ? "#3f51b5" : "inherit",
+            }}
+            onClick={() => setActiveTab("resources")}
+          >
             Tệp
           </Button>
           <IconButton>

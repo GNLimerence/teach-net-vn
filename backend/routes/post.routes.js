@@ -7,4 +7,5 @@ router.post("/create", postController.createPost);
 
 router.post("/forum-post", postController.getPostsByForumId);
 
+router.post("/get-post", postController.getPostByPostId);
 module.exports = router;

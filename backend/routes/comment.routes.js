@@ -3,10 +3,9 @@ const commentController = require("../controllers/comment.controller");
 
 const router = express.Router();
 
-// Route to create a new comment
 router.post("/", commentController.createComment);
 
-// Route to get all comments for a specific forum post
-router.get("/:forumId", commentController.getCommentsByForumId);
+router.post("/post-comment", commentController.getCommentsByPostId);
 
+router.post("/increase-agree", commentController.increaseAgreeCount);
 module.exports = router;
