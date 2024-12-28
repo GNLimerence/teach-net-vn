@@ -10,7 +10,7 @@ const GroupList = () => {
 
   const fetchMyForum = async () => {
     try {
-      const res = await fetchMyForumApi({ userId: "67573a956843e349fae8d810" });
+      const res = await fetchMyForumApi();
       if (res) {
         setGroups(res.data);
       }

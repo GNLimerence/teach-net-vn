@@ -35,7 +35,6 @@ const PostList = ({ posts, forumId, onRefreshPosts }) => {
       try {
         await createPostApi({
           forumId,
-          userId: "67573a956843e349fae8d810",
           title: postTitle,
           content: postDescription,
         });

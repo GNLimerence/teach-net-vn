@@ -1,11 +1,8 @@
 import axios from "./axiosCustomize";
 
-const fetchMyForumApi = ({ userId }) => {
+const fetchMyForumApi = () => {
   const URL = "/v1/api/forum/my-forums";
-  const data = {
-    userId,
-  };
-  return axios.post(URL, data);
+  return axios.post(URL);
 };
 
 const createForumApi = ({ name, userId, description }) => {
@@ -26,11 +23,10 @@ const getForumByIdApi = ({ forumId }) => {
   return axios.post(URL, data);
 };
 
-const createPostApi = ({ forumId, userId, title, content }) => {
+const createPostApi = ({ forumId, title, content }) => {
   const URL = "/v1/api/post/create";
   const data = {
     forumId,
-    userId,
     title,
     content,
   };
@@ -53,11 +49,10 @@ const getCommentsByPostId = ({ postId }) => {
   return axios.post(URL, data);
 };
 
-const createComment = ({ postId, authorId, content }) => {
+const createComment = ({ postId, content }) => {
   const URL = "/v1/api/comment";
   const data = {
     postId,
-    authorId,
     content,
   };
   return axios.post(URL, data);
@@ -72,19 +67,6 @@ const increaseAgreeCountApi = ({ commentId, userId }) => {
   return axios.post(URL, data);
 };
 
-const uploadResourceApi = ({ forumId, file }) => {
-  const URL = "/v1/api/resource/upload";
-  const formData = new FormData();
-  formData.append("forumId", forumId);
-  formData.append("file", file);
-
-  return axios.post(URL, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-};
-
 const getPostByIdApi = ({ postId }) => {
   const URL = "/v1/api/post/get-post";
   const data = {
@@ -92,6 +74,35 @@ const getPostByIdApi = ({ postId }) => {
   };
   return axios.post(URL, data);
 };
+
+const loginAction = ({ email, password }) => {
+  const URL = "/v1/api/auth/login";
+  const data = {
+    email,
+    password,
+  };
+  return axios.post(URL, data);
+};
+
+const getProfileApi = () => {
+  const URL = "/v1/api/auth/profile";
+  return axios.get(URL);
+};
+
+const getResourseList = ({ forumId }) => {
+  const URL = `/v1/api/resource/forum/${forumId}`;
+  return axios.get(URL);
+};
+
+const uploadResource = ({ file, title, forumId }) => {
+  const URL = "/v1/api/resource/upload";
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("title", title);
+  formData.append("forumId", forumId);
+  return axios.post(URL, formData);
+};
+
 export {
   fetchMyForumApi,
   createForumApi,
@@ -101,6 +112,9 @@ export {
   getCommentsByPostId,
   createComment,
   increaseAgreeCountApi,
-  uploadResourceApi,
   getPostByIdApi,
+  loginAction,
+  getProfileApi,
+  getResourseList,
+  uploadResource,
 };

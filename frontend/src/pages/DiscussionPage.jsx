@@ -52,7 +52,6 @@ const DiscussionPage = () => {
   const handleAddComment = async () => {
     const data = {
       postId,
-      authorId: "67573a956843e349fae8d810",
       content: newComment,
     };
     const res = await createComment(data);

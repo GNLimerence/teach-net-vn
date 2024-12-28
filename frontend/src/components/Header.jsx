@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -7,10 +7,35 @@ import {
   TextField,
   IconButton,
   Avatar,
+  Menu,
+  MenuItem,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate();
+
+  const handleAvatarClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleProfileClick = () => {
+    handleMenuClose();
+    navigate("/profile"); // Điều hướng đến trang Profile
+  };
+
+  const handleLogout = () => {
+    handleMenuClose();
+    localStorage.removeItem("token"); // Xóa token khỏi localStorage
+    navigate("/login"); // Điều hướng về trang Login
+  };
+
   return (
     <AppBar position="sticky" sx={{ backgroundColor: "#3f51b5" }}>
       <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -28,9 +53,25 @@ const Header = () => {
               }}
             />
           </Box>
-          <IconButton>
+          <IconButton onClick={handleAvatarClick}>
             <Avatar alt="Profile" />
           </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+          >
+            <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </Menu>
         </Box>
       </Toolbar>
     </AppBar>

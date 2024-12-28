@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Box, Button, TextField, Typography, Input } from "@mui/material";
+import { uploadResource } from "../api/api";
 
 const ResourceUpload = ({ forumId, onUploadSuccess }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -15,18 +16,8 @@ const ResourceUpload = ({ forumId, onUploadSuccess }) => {
       alert("Vui lòng điền đầy đủ thông tin!");
       return;
     }
-
-    const formData = new FormData();
-    formData.append("file", selectedFile);
-    formData.append("title", title);
-    formData.append("forumId", forumId);
-    formData.append("uploadedBy", "67573a956843e349fae8d810");
-
     try {
-      await axios.post(
-        "http://localhost:8080/v1/api/resource/upload",
-        formData
-      );
+      await uploadResource({ file: selectedFile, title, forumId });
       alert("Upload thành công!");
       setSelectedFile(null);
       setTitle("");

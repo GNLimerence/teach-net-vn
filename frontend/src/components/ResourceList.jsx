@@ -15,6 +15,7 @@ import {
 import DownloadIcon from "@mui/icons-material/Download";
 import FilePresentIcon from "@mui/icons-material/FilePresent";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { getResourseList } from "../api/api";
 
 const ResourceList = ({ forumId }) => {
   const [resources, setResources] = useState([]);
@@ -23,9 +24,7 @@ const ResourceList = ({ forumId }) => {
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8080/v1/api/resource/forum/${forumId}`
-        );
+        const response = await getResourseList({ forumId });
         setResources(response.data);
       } catch (error) {
         console.error("Lỗi khi lấy danh sách tài liệu:", error);

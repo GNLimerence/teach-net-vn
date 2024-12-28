@@ -13,6 +13,9 @@ const Sidebar = () => {
     navigate("/");
   };
 
+  const handleNavigateToChatPage = () => {
+    navigate("/chat");
+  };
   return (
     <Box
       sx={{
@@ -36,7 +39,7 @@ const Sidebar = () => {
         <IconButton color="inherit">
           <GroupIcon />
         </IconButton>
-        <IconButton color="inherit">
+        <IconButton color="inherit" onClick={handleNavigateToChatPage}>
           <MessageIcon />
         </IconButton>
         <IconButton color="inherit">
