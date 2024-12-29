@@ -26,7 +26,7 @@ const ChatPage = () => {
   const { auth } = useContext(AuthContext);
   const socket = useRef(null);
   const messagesEndRef = useRef(null);
-
+  console.log(auth);
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -142,7 +142,7 @@ const ChatPage = () => {
             }}
           >
             <Typography variant="h6" sx={{ p: 2, backgroundColor: "#f5f5f5" }}>
-              Conversations
+              会話
             </Typography>
             <Divider />
             <List
@@ -302,7 +302,7 @@ const ChatPage = () => {
                           handleSendMessage();
                         }
                       }}
-                      placeholder="Type your message..."
+                      placeholder="メッセージを入力してください..."
                       variant="outlined"
                       size="small"
                     />
@@ -337,7 +337,7 @@ const ChatPage = () => {
                 }}
               >
                 <Typography variant="h6" color="textSecondary">
-                  Select a conversation to start messaging
+                  会話を選択してメッセージを開始してください
                 </Typography>
               </Box>
             )}

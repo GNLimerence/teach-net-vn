@@ -29,7 +29,7 @@ const Login = () => {
 
       navigate("/");
     } catch (err) {
-      setError(err.response?.data?.message || "Something went wrong");
+      setError(err.response?.data?.message || "問題が発生しました");
     }
   };
 
@@ -54,7 +54,7 @@ const Login = () => {
         }}
       >
         <Typography variant="h5" sx={{ mb: 2 }}>
-          Login
+          ログイン
         </Typography>
         {error && (
           <Typography color="error" sx={{ mb: 2 }}>
@@ -63,7 +63,7 @@ const Login = () => {
         )}
         <form onSubmit={handleLogin}>
           <TextField
-            label="Email"
+            label="電子メール"
             variant="outlined"
             fullWidth
             sx={{ mb: 2 }}
@@ -72,7 +72,7 @@ const Login = () => {
             required
           />
           <TextField
-            label="Password"
+            label="パスワード"
             type="password"
             variant="outlined"
             fullWidth
@@ -82,7 +82,7 @@ const Login = () => {
             required
           />
           <Button type="submit" variant="contained" color="primary" fullWidth>
-            Login
+            ログイン
           </Button>
         </form>
       </Box>

@@ -50,7 +50,7 @@ const GroupList = () => {
       ) : (
         <Box sx={{ width: "100%", textAlign: "center", marginTop: "20px" }}>
           <Typography variant="h6" color="textSecondary">
-            Bạn chưa có nhóm nào. Hãy tham gia hoặc tạo nhóm mới!
+            まだグループがありません。参加するか、新しいグループを作成してください!
           </Typography>
         </Box>
       )}

@@ -67,8 +67,8 @@ const PostList = ({ posts, forumId, onRefreshPosts }) => {
             onClick={() => handleNavigateToDiscussionPage(post)}
           >
             <Avatar
-              src={post.created_by.avatar}
-              alt={post.created_by.name}
+              src={post.created_by?.avatar}
+              alt={post.created_by?.name}
               sx={{ width: 40, height: 40, marginRight: 2 }}
             />
             <Box sx={{ flex: 1 }}>
@@ -81,7 +81,7 @@ const PostList = ({ posts, forumId, onRefreshPosts }) => {
                   variant="body2"
                   sx={{ fontWeight: "bold", marginRight: 1 }}
                 >
-                  {post.created_by.name}
+                  {post.created_by?.name}
                 </Typography>
                 - {post.created_at}
               </Typography>
@@ -93,7 +93,7 @@ const PostList = ({ posts, forumId, onRefreshPosts }) => {
           </Box>
         ))
       ) : (
-        <Typography variant="body1">Không có bài đăng nào.</Typography>
+        <Typography variant="body1">投稿はありません。</Typography>
       )}
 
       <Fab
@@ -110,13 +110,13 @@ const PostList = ({ posts, forumId, onRefreshPosts }) => {
       </Fab>
 
       <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>Tạo bài đăng mới</DialogTitle>
+        <DialogTitle>新しい投稿を作成する</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
             margin="dense"
             id="title"
-            label="Tiêu đề"
+            label="タイトル"
             type="text"
             fullWidth
             variant="outlined"
@@ -126,7 +126,7 @@ const PostList = ({ posts, forumId, onRefreshPosts }) => {
           <TextField
             margin="dense"
             id="description"
-            label="Mô tả"
+            label="説明"
             type="text"
             fullWidth
             multiline
@@ -137,9 +137,9 @@ const PostList = ({ posts, forumId, onRefreshPosts }) => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog}>Hủy</Button>
+          <Button onClick={handleCloseDialog}>キャンセル</Button>
           <Button onClick={handleCreatePost} variant="contained">
-            Tạo bài đăng
+            投稿を作成する
           </Button>
         </DialogActions>
       </Dialog>

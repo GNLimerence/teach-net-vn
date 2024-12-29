@@ -136,7 +136,7 @@ const AdminPage = () => {
           {/* Topics Management */}
           <Box sx={{ mb: 4 }}>
             <Typography variant="h6" gutterBottom>
-              Quản lý chủ đề
+              トピック管理
             </Typography>
             <Button
               variant="contained"
@@ -144,15 +144,15 @@ const AdminPage = () => {
               onClick={() => setOpenTopicDialog(true)}
               sx={{ mb: 2 }}
             >
-              Thêm chủ đề
+              トピックを追加
             </Button>
             <TableContainer component={Paper}>
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Chủ đề</TableCell>
-                    <TableCell align="right">Hành động</TableCell>
-                    <TableCell align="right">Hành động</TableCell>
+                    <TableCell>トピック</TableCell>
+                    <TableCell align="right">活動</TableCell>
+                    <TableCell align="right">活動</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -185,7 +185,7 @@ const AdminPage = () => {
           {/* Users Management */}
           <Box>
             <Typography variant="h6" gutterBottom>
-              Quản lý người dùng
+              ユーザー管理
             </Typography>
             <Button
               variant="contained"
@@ -193,15 +193,15 @@ const AdminPage = () => {
               onClick={() => setOpenUserDialog(true)}
               sx={{ mb: 2 }}
             >
-              Thêm người dùng
+              ユーザーを追加
             </Button>
             <TableContainer component={Paper}>
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Tên</TableCell>
-                    <TableCell>Email</TableCell>
-                    <TableCell align="right">Hành động</TableCell>
+                    <TableCell>名前</TableCell>
+                    <TableCell>電子メール</TableCell>
+                    <TableCell align="right">活動</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -230,10 +230,10 @@ const AdminPage = () => {
           open={openTopicDialog}
           onClose={() => setOpenTopicDialog(false)}
         >
-          <DialogTitle>Thêm chủ đề mới</DialogTitle>
+          <DialogTitle>新しいトピックを追加</DialogTitle>
           <DialogContent>
             <TextField
-              label="Chủ đề"
+              label="トピック"
               fullWidth
               variant="outlined"
               value={newTopic}
@@ -241,19 +241,21 @@ const AdminPage = () => {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setOpenTopicDialog(false)}>Hủy</Button>
+            <Button onClick={() => setOpenTopicDialog(false)}>
+              キャンセル
+            </Button>
             <Button variant="contained" onClick={handleAddTopic}>
-              Thêm
+              追加します
             </Button>
           </DialogActions>
         </Dialog>
 
         {/* Dialog for Adding Users */}
         <Dialog open={openUserDialog} onClose={() => setOpenUserDialog(false)}>
-          <DialogTitle>Thêm người dùng mới</DialogTitle>
+          <DialogTitle>新しいユーザーを追加</DialogTitle>
           <DialogContent>
             <TextField
-              label="Tên"
+              label="名前"
               fullWidth
               variant="outlined"
               value={newUser.name}
@@ -261,7 +263,7 @@ const AdminPage = () => {
               sx={{ mb: 2 }}
             />
             <TextField
-              label="Email"
+              label="電子メール"
               fullWidth
               variant="outlined"
               value={newUser.email}
@@ -271,9 +273,9 @@ const AdminPage = () => {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setOpenUserDialog(false)}>Hủy</Button>
+            <Button onClick={() => setOpenUserDialog(false)}>キャンセル</Button>
             <Button variant="contained" onClick={handleAddUser}>
-              Thêm
+              追加します
             </Button>
           </DialogActions>
         </Dialog>
@@ -281,10 +283,10 @@ const AdminPage = () => {
           open={openAddUserToTopicDialog}
           onClose={() => setOpenAddUserToTopicDialog(false)}
         >
-          <DialogTitle>Thêm người dùng vào chủ đề</DialogTitle>
+          <DialogTitle>トピックにユーザーを追加する</DialogTitle>
           <DialogContent>
             <TextField
-              label="Email"
+              label="電子メール"
               fullWidth
               variant="outlined"
               value={emailToAdd}
@@ -293,10 +295,10 @@ const AdminPage = () => {
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setOpenAddUserToTopicDialog(false)}>
-              Hủy
+              キャンセル
             </Button>
             <Button variant="contained" onClick={handleAddUserToTopic}>
-              Thêm
+              追加します
             </Button>
           </DialogActions>
         </Dialog>

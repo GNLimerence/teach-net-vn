@@ -92,7 +92,7 @@ const DiscussionPage = () => {
               }}
               onClick={() => setActiveTab("posts")}
             >
-              Comment
+              コメント
             </Button>
             <Button
               variant={activeTab === "resources" ? "contained" : "outlined"}
@@ -103,7 +103,7 @@ const DiscussionPage = () => {
               }}
               onClick={() => setActiveTab("resources")}
             >
-              Tệp
+              ファイル
             </Button>
           </Box>
         </Box>
@@ -195,7 +195,7 @@ const DiscussionPage = () => {
                   fullWidth
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
-                  placeholder="Add a new comment..."
+                  placeholder="新しいコメントを追加..."
                   variant="outlined"
                 />
                 <Button
@@ -204,7 +204,7 @@ const DiscussionPage = () => {
                   color="primary"
                   sx={{ marginLeft: 2 }}
                 >
-                  Submit
+                  送信
                 </Button>
               </Box>
             </Box>
@@ -223,17 +223,17 @@ const DiscussionPage = () => {
               }}
             >
               <Typography variant="h6" color="#3f51b5" gutterBottom>
-                Thread Info
+                スレッド情報
               </Typography>
               <Stack spacing={1}>
                 <Typography>
-                  <strong>Created by:</strong> {post?.created_by?.name}
+                  <strong>作成者:</strong> {post?.created_by?.name}
                 </Typography>
                 <Typography>
-                  <strong>Created at:</strong> {post?.created_at}
+                  <strong>作成日:</strong> {post?.created_at}
                 </Typography>
                 <Typography>
-                  <strong>Replies:</strong> {comments?.length || 0}
+                  <strong>返信:</strong> {comments?.length || 0}
                 </Typography>
               </Stack>
             </Box>

@@ -64,7 +64,9 @@ const ForumPage = () => {
           height: "100vh",
         }}
       >
-        <Typography variant="h6">Đang tải thông tin diễn đàn...</Typography>
+        <Typography variant="h6">
+          フォーラム情報を読み込んでいます...
+        </Typography>
       </Box>
     );
   }
@@ -96,7 +98,7 @@ const ForumPage = () => {
           height: "100vh",
         }}
       >
-        <Typography variant="h6">Không tìm thấy diễn đàn.</Typography>
+        <Typography variant="h6">フォーラムが見つかりません。</Typography>
       </Box>
     );
   }

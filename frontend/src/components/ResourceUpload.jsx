@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, TextField, Typography, Input } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { uploadResource } from "../api/api";
 
 const ResourceUpload = ({ postId, onUploadSuccess }) => {
@@ -12,18 +12,21 @@ const ResourceUpload = ({ postId, onUploadSuccess }) => {
 
   const handleUpload = async () => {
     if (!selectedFile || !title) {
-      alert("Vui lòng điền đầy đủ thông tin!");
+      alert("すべての情報を入力してください。");
       return;
     }
     try {
       await uploadResource({ file: selectedFile, title, postId });
-      alert("Upload thành công!");
+      alert("アップロード成功しました!");
       setSelectedFile(null);
       setTitle("");
       if (onUploadSuccess) onUploadSuccess();
     } catch (error) {
-      console.error("Lỗi khi upload tài liệu:", error);
-      alert("Đã xảy ra lỗi khi upload.");
+      console.error(
+        "ドキュメントのアップロード中にエラーが発生しました:",
+        error
+      );
+      alert("アップロード中にエラーが発生しました。");
     }
   };
 
@@ -40,17 +43,42 @@ const ResourceUpload = ({ postId, onUploadSuccess }) => {
         variant="h6"
         sx={{ mb: 2, color: "#3f51b5", fontWeight: "bold" }}
       >
-        Upload Tài Liệu
+        ドキュメントをアップロード
       </Typography>
       <TextField
-        label="Tên tài liệu"
+        label="文書名"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         fullWidth
         sx={{ mb: 3 }}
       />
-      <Input type="file" onChange={handleFileChange} />
-      <Box sx={{ mt: 2 }}>
+      <Button
+        variant="contained"
+        component="label"
+        color="primary"
+        sx={{
+          mt: 2,
+          backgroundColor: "#3f51b5",
+          "&:hover": {
+            backgroundColor: "#2c387e",
+          },
+        }}
+      >
+        ファイルを選択
+        <input
+          type="file"
+          hidden
+          onChange={handleFileChange}
+          accept="*"
+          lang="ja"
+        />
+      </Button>
+      {selectedFile && (
+        <Typography variant="body2" sx={{ mt: 1 }}>
+          選択されたファイル: {selectedFile.name}
+        </Typography>
+      )}
+      <Box sx={{ mt: 3 }}>
         <Button
           variant="contained"
           color="primary"
@@ -63,7 +91,7 @@ const ResourceUpload = ({ postId, onUploadSuccess }) => {
             },
           }}
         >
-          Upload
+          アップロード
         </Button>
       </Box>
     </Box>

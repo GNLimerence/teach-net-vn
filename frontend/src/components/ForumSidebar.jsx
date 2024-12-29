@@ -15,33 +15,6 @@ const ForumSidebar = ({ forumInfo, activeTab, setActiveTab }) => {
         <Typography variant="h5" sx={{ fontWeight: "bold" }}>
           {forumInfo?.name}
         </Typography>
-        <Box>
-          <Button
-            variant={activeTab === "posts" ? "contained" : "outlined"}
-            sx={{
-              marginRight: "8px",
-              backgroundColor: activeTab === "posts" ? "#3f51b5" : "inherit",
-              color: activeTab === "posts" ? "white" : "#3f51b5",
-            }}
-            onClick={() => setActiveTab("posts")}
-          >
-            Bài đăng
-          </Button>
-          <Button
-            variant={activeTab === "resources" ? "contained" : "outlined"}
-            sx={{
-              color: activeTab === "resources" ? "white" : "#3f51b5",
-              backgroundColor:
-                activeTab === "resources" ? "#3f51b5" : "inherit",
-            }}
-            onClick={() => setActiveTab("resources")}
-          >
-            Tệp
-          </Button>
-          <IconButton>
-            <HelpOutlineIcon sx={{ color: "#3f51b5" }} />
-          </IconButton>
-        </Box>
       </Stack>
     </Box>
   );

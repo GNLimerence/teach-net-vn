@@ -58,7 +58,7 @@ const ResourceList = ({ postId }) => {
         variant="h6"
         sx={{ mb: 2, color: "#3f51b5", fontWeight: "bold" }}
       >
-        Danh Sách Tài Liệu
+        文書一覧
       </Typography>
       <List
         sx={{
@@ -142,12 +142,12 @@ const ResourceList = ({ postId }) => {
           )}
           {previewFile && !previewFile.match(/\.(pdf|jpg|jpeg|png|gif)$/i) && (
             <Typography variant="body1" color="error">
-              Không thể xem trước tệp này.
+              このファイルはプレビューできません。
             </Typography>
           )}
           <Box sx={{ mt: 2, textAlign: "right" }}>
             <IconButton onClick={handleClosePreview} color="error">
-              Đóng
+              近い
             </IconButton>
           </Box>
         </Box>

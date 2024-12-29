@@ -90,21 +90,21 @@ const ProfilePage = () => {
               </Typography>
             </Grid>
             <Grid item xs={12} sm={8}>
-              <Typography variant="h6">Chuyên Môn:</Typography>
+              <Typography variant="h6">専門分野:</Typography>
               <Typography variant="body1">
-                {profile?.specialization || "Chưa cập nhật"}
+                {profile?.specialization || "まだ更新されていません"}
               </Typography>
               <Typography variant="h6" sx={{ marginTop: 2 }}>
-                Kinh nghiệm:
+                経験：
               </Typography>
               <Typography variant="body1">
-                {profile?.experience_years} năm
+                {profile?.experience_years} 年
               </Typography>
               <Typography variant="h6" sx={{ marginTop: 2 }}>
-                Kỹ năng:
+                スキル：
               </Typography>
               <Typography variant="body1">
-                {profile?.skills?.join(", ") || "Chưa cập nhật"}
+                {profile?.skills?.join(", ") || "まだ更新されていません"}
               </Typography>
               <Button
                 variant="contained"
@@ -112,7 +112,7 @@ const ProfilePage = () => {
                 sx={{ marginTop: 2 }}
                 onClick={handleOpenDialog}
               >
-                Cập nhật hồ sơ
+                プロフィールを更新
               </Button>
             </Grid>
           </Grid>
@@ -120,12 +120,12 @@ const ProfilePage = () => {
 
         {/* Dialog cập nhật hồ sơ */}
         <Dialog open={openDialog} onClose={handleCloseDialog}>
-          <DialogTitle>Cập nhật hồ sơ</DialogTitle>
+          <DialogTitle>プロフィールを更新</DialogTitle>
           <DialogContent>
             <TextField
               fullWidth
               margin="normal"
-              label="Tên"
+              label="名前"
               name="name"
               value={formValues.name}
               onChange={handleInputChange}
@@ -133,7 +133,7 @@ const ProfilePage = () => {
             <TextField
               fullWidth
               margin="normal"
-              label="Chuyên môn"
+              label="専門知識"
               name="specialization"
               value={formValues.specialization}
               onChange={handleInputChange}
@@ -141,7 +141,7 @@ const ProfilePage = () => {
             <TextField
               fullWidth
               margin="normal"
-              label="Số năm kinh nghiệm"
+              label="長年の経験"
               name="experience_years"
               value={formValues.experience_years}
               onChange={handleInputChange}
@@ -150,7 +150,7 @@ const ProfilePage = () => {
             <TextField
               fullWidth
               margin="normal"
-              label="Kỹ năng (ngăn cách bằng dấu phẩy)"
+              label="スキル（カンマ区切り）"
               name="skills"
               value={formValues.skills}
               onChange={handleInputChange}
@@ -158,10 +158,10 @@ const ProfilePage = () => {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleCloseDialog} color="secondary">
-              Hủy
+              キャンセル
             </Button>
             <Button onClick={handleUpdateProfile} color="primary">
-              Lưu
+              保存
             </Button>
           </DialogActions>
         </Dialog>
