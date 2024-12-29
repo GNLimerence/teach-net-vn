@@ -4,15 +4,14 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
 
 const createUserByAdmin = async (req, res) => {
-  const { email, password, name } = req.body;
-
+  const { email, name } = req.body;
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash("123456", 10);
 
     const newUser = new User({
       email,

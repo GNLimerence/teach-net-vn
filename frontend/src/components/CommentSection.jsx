@@ -9,7 +9,7 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import SendIcon from "@mui/icons-material/Send";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import {

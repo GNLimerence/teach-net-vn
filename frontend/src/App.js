@@ -10,6 +10,7 @@ import Login from "./pages/LoginPage";
 import axios from "./api/axiosCustomize";
 import { AuthContext } from "./components/context/auth.context";
 import ProfilePage from "./pages/ProfilePage";
+import AdminPage from "./pages/AdminPage";
 
 const App = () => {
   const { auth, setAuth, setAppLoading, appLoading } = useContext(AuthContext);
@@ -25,6 +26,7 @@ const App = () => {
               email: res.data.email,
               name: res.data.name,
               isAdmin: res.data.isAdmin,
+              id: res.data.id,
             },
           });
         }
@@ -41,6 +43,7 @@ const App = () => {
         <Route path="/chat" element={<ChatPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/admin" element={<AdminPage />} />
       </Routes>
     </Router>
   );

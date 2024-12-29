@@ -5,11 +5,10 @@ const fetchMyForumApi = () => {
   return axios.post(URL);
 };
 
-const createForumApi = ({ name, userId, description }) => {
+const createForumApi = ({ name, description }) => {
   const URL = "/v1/api/forum";
   const data = {
     name,
-    userId,
     description,
   };
   return axios.post(URL, data);
@@ -103,6 +102,28 @@ const uploadResource = ({ file, title, forumId }) => {
   return axios.post(URL, formData);
 };
 
+const getAllUsersApi = () => {
+  const URL = "/v1/api/auth/users";
+  return axios.get(URL);
+};
+
+const createUser = ({ name, email }) => {
+  const URL = "/v1/api/auth/register";
+  const data = {
+    name,
+    email,
+  };
+  return axios.post(URL, data);
+};
+
+const joinForumApi = ({ email, forumId }) => {
+  const URL = "/v1/api/forum/join-forum";
+  const data = {
+    email,
+    forumId,
+  };
+  return axios.post(URL, data);
+};
 export {
   fetchMyForumApi,
   createForumApi,
@@ -117,4 +138,7 @@ export {
   getProfileApi,
   getResourseList,
   uploadResource,
+  getAllUsersApi,
+  createUser,
+  joinForumApi,
 };

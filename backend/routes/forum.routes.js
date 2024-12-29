@@ -1,10 +1,10 @@
 const express = require("express");
 const forumController = require("../controllers/forum.controller");
-const { verifyToken } = require("../middleware/auth");
+const { verifyToken, verifyAdmin } = require("../middleware/auth");
 
 const router = express.Router();
 
-router.post("/", forumController.createForum);
+router.post("/", verifyToken, verifyAdmin, forumController.createForum);
 
 router.post("/my-forums", verifyToken, forumController.getForumsByUser);
 

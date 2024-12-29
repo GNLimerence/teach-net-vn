@@ -12,14 +12,11 @@ import {
   Avatar,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import CommentSection from "./CommentSection";
 import { createPostApi } from "../api/api";
 import { useNavigate } from "react-router-dom";
 
 const PostList = ({ posts, forumId, onRefreshPosts }) => {
   const [openDialog, setOpenDialog] = useState(false);
-  const [openCommentDialog, setOpenCommentDialog] = useState(false);
-  const [selectedPost, setSelectedPost] = useState(null);
   const [postTitle, setPostTitle] = useState("");
   const [postDescription, setPostDescription] = useState("");
   const navigate = useNavigate();
@@ -43,13 +40,6 @@ const PostList = ({ posts, forumId, onRefreshPosts }) => {
       } catch (err) {
         console.error("Error creating post:", err);
       }
-    }
-  };
-
-  const handleOpenCommentDialog = (post) => {
-    if (post) {
-      setSelectedPost(post);
-      setOpenCommentDialog(true);
     }
   };
 
@@ -153,12 +143,6 @@ const PostList = ({ posts, forumId, onRefreshPosts }) => {
           </Button>
         </DialogActions>
       </Dialog>
-
-      <CommentSection
-        open={openCommentDialog}
-        onclose={() => setOpenCommentDialog(false)}
-        selectedPost={selectedPost}
-      />
     </>
   );
 };

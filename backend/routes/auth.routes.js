@@ -13,7 +13,7 @@ router.post(
 
 router.post("/login", authController.loginUser);
 
-router.get("/users", verifyToken, verifyAdmin, authController.getAllUsers);
+router.get("/users", verifyToken, authController.getAllUsers);
 
 router.get("/me", verifyToken, authController.getAccount);
 

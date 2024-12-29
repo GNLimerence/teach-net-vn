@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Box, Button, TextField, Typography, Input } from "@mui/material";
 import { uploadResource } from "../api/api";
 

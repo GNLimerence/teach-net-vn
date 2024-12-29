@@ -1,17 +1,18 @@
 const forumModel = require("../models/forum.model");
-const mongoose = require("mongoose");
+const User = require("../models/user.model");
 const createForum = async (req, res) => {
   try {
-    const { name, userId, description } = req.body;
-    if (!name || !userId) {
+    const { name, description } = req.body;
+    const { id } = req.user;
+    if (!name) {
       return res.status(400).json({ error: "Missing information" });
     }
 
     const newPost = await forumModel.create({
       name,
-      created_by: userId,
+      created_by: id,
       description,
-      members: [userId],
+      members: [id],
     });
     res.status(201).json(newPost);
   } catch (err) {
@@ -39,15 +40,20 @@ const getForumsByUser = async (req, res) => {
 
 const joinForum = async (req, res) => {
   try {
-    const { userId, forumId } = req.body;
+    const { email, forumId } = req.body;
 
-    if (!userId || !forumId) {
-      return res.status(400).json({ error: "Missing userId or forumId" });
+    if (!email || !forumId) {
+      return res.status(400).json({ error: "Missing email or forumId" });
     }
 
-    const forum = await Forum.findOneAndUpdate(
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: "User not found!" });
+    }
+
+    const forum = await forumModel.findOneAndUpdate(
       { _id: forumId },
-      { $addToSet: { members: userId } },
+      { $addToSet: { members: user._id } },
       { new: true }
     );
 
