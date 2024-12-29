@@ -14,14 +14,14 @@ import FilePresentIcon from "@mui/icons-material/FilePresent";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { getResourseList } from "../api/api";
 
-const ResourceList = ({ forumId }) => {
+const ResourceList = ({ postId }) => {
   const [resources, setResources] = useState([]);
   const [previewFile, setPreviewFile] = useState(null);
 
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        const response = await getResourseList({ forumId });
+        const response = await getResourseList({ postId });
         setResources(response.data);
       } catch (error) {
         console.error("Lỗi khi lấy danh sách tài liệu:", error);
@@ -29,7 +29,7 @@ const ResourceList = ({ forumId }) => {
     };
 
     fetchResources();
-  }, [forumId]);
+  }, [postId]);
 
   const handleDownload = (fileUrl) => {
     const downloadUrl = `http://localhost:8080${fileUrl}`;

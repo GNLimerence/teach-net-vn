@@ -87,10 +87,47 @@ const getUserProfile = async (req, res) => {
   }
 };
 
+const updateProfile = async (req, res) => {
+  const { name, specialization, skills, experience_years } = req.body;
+  const { email } = req.user; // Email từ JWT payload hoặc req.user được gắn từ middleware xác thực
+
+  try {
+    // Tìm và cập nhật user theo email
+    const updatedUser = await User.findOneAndUpdate(
+      { email },
+      {
+        name,
+        specialization,
+        skills,
+        experience_years,
+        updated_at: Date.now(), // Cập nhật timestamp
+      },
+      { new: true } // Trả về document đã cập nhật
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      user: updatedUser,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error updating profile",
+      error,
+    });
+  }
+};
+
 module.exports = {
   createUserByAdmin,
   loginUser,
   getAllUsers,
   getAccount,
   getUserProfile,
+  updateProfile,
 };

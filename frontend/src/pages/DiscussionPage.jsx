@@ -16,12 +16,15 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { createComment, getCommentsByPostId, getPostByIdApi } from "../api/api";
+import ResourceUpload from "../components/ResourceUpload";
+import ResourceList from "../components/ResourceList";
 
 const DiscussionPage = () => {
   const { id, postId } = useParams();
   const [post, setPost] = useState();
   const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState(""); // State for new comment
+  const [newComment, setNewComment] = useState("");
+  const [activeTab, setActiveTab] = useState("posts");
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -60,7 +63,6 @@ const DiscussionPage = () => {
       setNewComment("");
     }
   };
-
   return (
     <Box sx={{ display: "flex", position: "relative", minHeight: "100vh" }}>
       <Sidebar />
@@ -80,6 +82,30 @@ const DiscussionPage = () => {
           <Typography variant="h4" color="#3f51b5">
             {post?.title}
           </Typography>
+          <Box>
+            <Button
+              variant={activeTab === "posts" ? "contained" : "outlined"}
+              sx={{
+                marginRight: "8px",
+                backgroundColor: activeTab === "posts" ? "#3f51b5" : "inherit",
+                color: activeTab === "posts" ? "white" : "#3f51b5",
+              }}
+              onClick={() => setActiveTab("posts")}
+            >
+              Comment
+            </Button>
+            <Button
+              variant={activeTab === "resources" ? "contained" : "outlined"}
+              sx={{
+                color: activeTab === "resources" ? "white" : "#3f51b5",
+                backgroundColor:
+                  activeTab === "resources" ? "#3f51b5" : "inherit",
+              }}
+              onClick={() => setActiveTab("resources")}
+            >
+              Tệp
+            </Button>
+          </Box>
         </Box>
 
         <Stack spacing={2} padding={2} direction="row">
@@ -94,124 +120,133 @@ const DiscussionPage = () => {
             <Typography color="gray">{post?.created_at}</Typography>
           </Stack>
         </Stack>
-
-        <Stack
-          direction="row"
-          spacing={2}
-          padding={2}
-          divider={<Divider orientation="vertical" flexItem />}
-        >
-          <Box
-            sx={{
-              flexGrow: 1,
-              maxHeight: "550px",
-              overflowY: "auto",
-            }}
+        {activeTab === "posts" ? (
+          <Stack
+            direction="row"
+            spacing={2}
+            padding={2}
+            divider={<Divider orientation="vertical" flexItem />}
           >
-            {comments?.map((comment) => (
-              <Box
-                key={comment._id}
-                sx={{
-                  display: "flex",
-                  border: "1px solid #ddd",
-                  borderRadius: 2,
-                  marginBottom: 2,
-                  padding: "8px",
-                }}
-              >
-                <Box
-                  sx={{
-                    minWidth: "150px",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "8px",
-                    backgroundColor: "#f9f9f9",
-                    borderRight: "1px solid #ddd",
-                  }}
-                >
-                  <Avatar
-                    src={comment.author_id.avatar_url}
-                    alt={comment.author_id.name}
-                  />
-                  <Typography fontWeight="bold" color="#3f51b5">
-                    {comment.author_id?.name}
-                  </Typography>
-                  <Typography variant="body2" color="gray">
-                    {comment.created_at}
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    flexGrow: 1,
-                    padding: "16px",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography>{comment.content}</Typography>
-                </Box>
-              </Box>
-            ))}
             <Box
               sx={{
-                display: "flex",
-                alignItems: "center",
-                marginTop: 3,
-                padding: 2,
-                border: "1px solid #ddd",
-                borderRadius: 2,
-                backgroundColor: "#f9f9f9",
+                flexGrow: 1,
+                maxHeight: "550px",
+                overflowY: "auto",
               }}
             >
-              <TextField
-                fullWidth
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                placeholder="Add a new comment..."
-                variant="outlined"
-              />
-              <Button
-                onClick={handleAddComment}
-                variant="contained"
-                color="primary"
-                sx={{ marginLeft: 2 }}
+              {comments?.map((comment) => (
+                <Box
+                  key={comment._id}
+                  sx={{
+                    display: "flex",
+                    border: "1px solid #ddd",
+                    borderRadius: 2,
+                    marginBottom: 2,
+                    padding: "8px",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      minWidth: "150px",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "8px",
+                      backgroundColor: "#f9f9f9",
+                      borderRight: "1px solid #ddd",
+                    }}
+                  >
+                    <Avatar
+                      src={comment.author_id.avatar_url}
+                      alt={comment.author_id.name}
+                    />
+                    <Typography fontWeight="bold" color="#3f51b5">
+                      {comment.author_id?.name}
+                    </Typography>
+                    <Typography variant="body2" color="gray">
+                      {comment.created_at}
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      flexGrow: 1,
+                      padding: "16px",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography>{comment.content}</Typography>
+                  </Box>
+                </Box>
+              ))}
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginTop: 3,
+                  padding: 2,
+                  border: "1px solid #ddd",
+                  borderRadius: 2,
+                  backgroundColor: "#f9f9f9",
+                }}
               >
-                Submit
-              </Button>
+                <TextField
+                  fullWidth
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  placeholder="Add a new comment..."
+                  variant="outlined"
+                />
+                <Button
+                  onClick={handleAddComment}
+                  variant="contained"
+                  color="primary"
+                  sx={{ marginLeft: 2 }}
+                >
+                  Submit
+                </Button>
+              </Box>
             </Box>
-          </Box>
 
-          {/* Thread Info */}
-          <Box
-            sx={{
-              width: "300px",
-              border: "1px solid #ddd",
-              borderRadius: 2,
-              padding: 2,
-              backgroundColor: "#f9f9f9",
-              position: "sticky",
-              top: "16px",
-              maxHeight: "150px",
-            }}
-          >
-            <Typography variant="h6" color="#3f51b5" gutterBottom>
-              Thread Info
-            </Typography>
-            <Stack spacing={1}>
-              <Typography>
-                <strong>Created by:</strong> {post?.created_by?.name}
+            {/* Thread Info */}
+            <Box
+              sx={{
+                width: "300px",
+                border: "1px solid #ddd",
+                borderRadius: 2,
+                padding: 2,
+                backgroundColor: "#f9f9f9",
+                position: "sticky",
+                top: "16px",
+                maxHeight: "140px",
+              }}
+            >
+              <Typography variant="h6" color="#3f51b5" gutterBottom>
+                Thread Info
               </Typography>
-              <Typography>
-                <strong>Created at:</strong> {post?.created_at}
-              </Typography>
-              <Typography>
-                <strong>Replies:</strong> {comments?.length || 0}
-              </Typography>
-            </Stack>
-          </Box>
-        </Stack>
+              <Stack spacing={1}>
+                <Typography>
+                  <strong>Created by:</strong> {post?.created_by?.name}
+                </Typography>
+                <Typography>
+                  <strong>Created at:</strong> {post?.created_at}
+                </Typography>
+                <Typography>
+                  <strong>Replies:</strong> {comments?.length || 0}
+                </Typography>
+              </Stack>
+            </Box>
+          </Stack>
+        ) : (
+          <div>
+            <ResourceUpload
+              postId={postId}
+              onUploadSuccess={() => window.location.reload()}
+            />
+            <ResourceList postId={postId} />
+          </div>
+        )}
       </Box>
     </Box>
   );

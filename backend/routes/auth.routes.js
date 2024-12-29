@@ -19,4 +19,6 @@ router.get("/me", verifyToken, authController.getAccount);
 
 router.get("/profile", verifyToken, authController.getUserProfile);
 
+router.post("/update-profile", verifyToken, authController.updateProfile);
+
 module.exports = router;

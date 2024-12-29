@@ -88,17 +88,21 @@ const getProfileApi = () => {
   return axios.get(URL);
 };
 
-const getResourseList = ({ forumId }) => {
-  const URL = `/v1/api/resource/forum/${forumId}`;
+const updateProfileApi = (profileData) => {
+  return axios.post("/v1/api/auth/update-profile", profileData);
+};
+
+const getResourseList = ({ postId }) => {
+  const URL = `/v1/api/resource/post/${postId}`;
   return axios.get(URL);
 };
 
-const uploadResource = ({ file, title, forumId }) => {
+const uploadResource = ({ file, title, postId }) => {
   const URL = "/v1/api/resource/upload";
   const formData = new FormData();
   formData.append("file", file);
   formData.append("title", title);
-  formData.append("forumId", forumId);
+  formData.append("postId", postId);
   return axios.post(URL, formData);
 };
 
@@ -141,4 +145,5 @@ export {
   getAllUsersApi,
   createUser,
   joinForumApi,
+  updateProfileApi,
 };

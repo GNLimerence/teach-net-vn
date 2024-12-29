@@ -4,9 +4,9 @@ const resourceSchema = new mongoose.Schema({
   title: { type: String, required: true },
   file_url: { type: String, required: true },
   tags: [String],
-  forum_id: {
+  post_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Forum",
+    ref: "Post",
   },
   uploaded_by: {
     type: mongoose.Schema.Types.ObjectId,

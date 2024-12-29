@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, TextField, Typography, Input } from "@mui/material";
 import { uploadResource } from "../api/api";
 
-const ResourceUpload = ({ forumId, onUploadSuccess }) => {
+const ResourceUpload = ({ postId, onUploadSuccess }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [title, setTitle] = useState("");
 
@@ -16,7 +16,7 @@ const ResourceUpload = ({ forumId, onUploadSuccess }) => {
       return;
     }
     try {
-      await uploadResource({ file: selectedFile, title, forumId });
+      await uploadResource({ file: selectedFile, title, postId });
       alert("Upload thành công!");
       setSelectedFile(null);
       setTitle("");

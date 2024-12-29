@@ -20,6 +20,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.post("/upload", verifyToken, upload.single("file"), uploadResource);
-router.get("/forum/:forumId", verifyToken, getResourcesByForum);
+router.get("/post/:postId", verifyToken, getResourcesByForum);
 
 module.exports = router;
