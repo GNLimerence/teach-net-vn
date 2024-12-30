@@ -122,6 +122,18 @@ const PostList = ({ posts, forumId, onRefreshPosts }) => {
             value={postTitle}
             onChange={(e) => setPostTitle(e.target.value)}
           />
+          <TextField
+            margin="dense"
+            id="description"
+            label="説明"
+            type="text"
+            fullWidth
+            multiline
+            rows={4}
+            variant="outlined"
+            value={postDescription}
+            onChange={(e) => setPostDescription(e.target.value)}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>キャンセル</Button>

@@ -6,7 +6,7 @@ const userModel = require("../models/user.model");
 const createPost = async (req, res) => {
   const { forumId, title, content } = req.body;
   const { id } = req.user;
-  if (!forumId || !title || !content) {
+  if (!forumId || !title) {
     return res.status(400).json({ error: "Missing information" });
   }
   await postModel.create({

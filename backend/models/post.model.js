@@ -8,7 +8,7 @@ const postSchema = new mongoose.Schema({
     required: true,
   },
   title: { type: String, required: true },
-  content: { type: String, required: true },
+  content: { type: String },
   created_by: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

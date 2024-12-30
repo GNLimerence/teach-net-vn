@@ -72,16 +72,30 @@ const DiscussionPage = () => {
           sx={{
             display: "flex",
             alignItems: "center",
-            gap: "10px",
+            justifyContent: "space-between", // Căn đều giữa title và nút
             padding: "16px",
           }}
         >
-          <IconButton onClick={handleBack}>
-            <ArrowBackIcon fontSize="large" />
-          </IconButton>
-          <Typography variant="h4" color="#3f51b5">
-            {post?.title}
-          </Typography>
+          {/* Left section: Back button and title */}
+          <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <IconButton onClick={handleBack}>
+              <ArrowBackIcon fontSize="large" />
+            </IconButton>
+            <Box>
+              <Typography variant="h4" color="#3f51b5">
+                {post?.title}
+              </Typography>
+              <Typography
+                variant="body1"
+                color="textSecondary"
+                sx={{ marginTop: "8px" }}
+              >
+                {post?.content}
+              </Typography>
+            </Box>
+          </Box>
+
+          {/* Right section: Buttons */}
           <Box>
             <Button
               variant={activeTab === "posts" ? "contained" : "outlined"}
