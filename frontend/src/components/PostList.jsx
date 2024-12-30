@@ -88,7 +88,6 @@ const PostList = ({ posts, forumId, onRefreshPosts }) => {
               <Typography variant="h6" sx={{ marginTop: 1 }}>
                 {post.title}
               </Typography>
-              <Typography variant="body1">{post.content}</Typography>
             </Box>
           </Box>
         ))
@@ -122,18 +121,6 @@ const PostList = ({ posts, forumId, onRefreshPosts }) => {
             variant="outlined"
             value={postTitle}
             onChange={(e) => setPostTitle(e.target.value)}
-          />
-          <TextField
-            margin="dense"
-            id="description"
-            label="説明"
-            type="text"
-            fullWidth
-            multiline
-            rows={4}
-            variant="outlined"
-            value={postDescription}
-            onChange={(e) => setPostDescription(e.target.value)}
           />
         </DialogContent>
         <DialogActions>

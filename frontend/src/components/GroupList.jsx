@@ -31,18 +31,34 @@ const GroupList = () => {
   return (
     <Grid container spacing={3} sx={{ padding: "20px" }}>
       {groups === null ? (
-        <Box sx={{ display: "flex" }}>
+        <Box sx={{ display: "flex", justifyContent: "center", width: "100%" }}>
           <CircularProgress />
         </Box>
       ) : groups.length > 0 ? (
         groups.map((group) => (
           <Grid item xs={12} sm={6} md={4} key={group._id}>
             <Card
-              sx={{ cursor: "pointer" }}
+              sx={{
+                cursor: "pointer",
+                border: "1px solid #ccc",
+                borderRadius: "8px",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                height: "150px", // Điều chỉnh chiều dài
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                transition: "transform 0.2s, box-shadow 0.2s",
+                "&:hover": {
+                  transform: "scale(1.03)",
+                  boxShadow: "0 6px 12px rgba(0, 0, 0, 0.15)",
+                },
+              }}
               onClick={() => handleGroupClick(group._id)}
             >
-              <CardContent>
-                <Typography variant="h6">{group.name}</Typography>
+              <CardContent sx={{ textAlign: "center" }}>
+                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                  {group.name}
+                </Typography>
               </CardContent>
             </Card>
           </Grid>
